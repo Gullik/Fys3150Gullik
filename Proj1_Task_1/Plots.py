@@ -25,8 +25,14 @@ show()
 ErrorTable = genfromtxt('ErrorTable.csv', delimiter=',')
 
 FigRelErr = figure()
-plot(log10(1/(ErrorTable[:,0]+1)), ErrorTable[:,1], label = 'Calculated solution')
+plot(log10(1/(ErrorTable[:,0]+1)), ErrorTable[:,1], label = 'Relative Error')
 
+title('Plot of the max relative error dependant on the stepsize')
+legend(loc='upper right')
+xlabel('log10(1/(N+1))')
+ylabel('Max Relative Error')
+grid(True)
+savefig("RelErrorPlot.png")
 
 show()
 

@@ -137,6 +137,8 @@ Start = clock();
     vec u_mysolver = Tridim_Solver(N);
 Finish = clock();
 
+//NB! Stupid int CLOCKS_PER_SEC forces the ansver to be in an integer :(
+
 double MySolv = (Finish - Start)/CLOCKS_PER_SEC;
 
 cout << GenSolv << " vs  " << MySolv << endl;
@@ -173,26 +175,31 @@ int main()
    myfile.close();
 
 // Error calculation
-cout << "Want to do relative error?" << endl;
+cout << "Want to do relative error? Yes = 1, No = 0" << endl;
 
     int Ans;
     cin >> Ans;
     if (Ans == 1)
      {   mat ErrorTable = RelError(N);
 
-
-
-//   ofstream myfile;
-   myfile.open ("../Proj1_Task_1/ErrorTable.csv");
-       for(uint i = 0; i< ErrorTable.n_rows ; i++)
-       {
-            myfile <<ErrorTable(i,0) << "," << ErrorTable(i,1) << endl ;
-       }
-   myfile.close();
-    }
+        //   ofstream myfile;
+           myfile.open ("../Proj1_Task_1/ErrorTable.csv");
+               for(uint i = 0; i< ErrorTable.n_rows ; i++)
+               {
+                    myfile <<ErrorTable(i,0) << "," << ErrorTable(i,1) << endl ;
+               }
+           myfile.close();
+      }
 //Done with error calculation part
 
-   Time_Comp(N);
+
+cout << "Want to do time comparison? Yes = 1, No = 0" << endl;
+   cin >> Ans;
+   if (Ans == 1)
+   {
+       Time_Comp(N);
+   }
+
 
 
   
