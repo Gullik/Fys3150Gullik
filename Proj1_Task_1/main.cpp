@@ -1,9 +1,13 @@
 #include <iostream>
+#include <fstream>
 #include "armadillo"
+//#include "gnuplot_i.hpp"
+
 
 
 using namespace std;
 using namespace arma;
+
 
 vec Tridim_Solver(int N)
 {
@@ -18,20 +22,27 @@ vec Tridim_Solver(int N)
     int i;
 
     //Creating some points of the source term f(x) = 100e^{-10x}
-    vec f = exp(-10 * linspace(0,1, N));
+    vec tilde_b = (1/(N+1))*exp(-10 * linspace(0,1, N));
+
+
 
 //    cout << f << endl;
 
     //The forward subsitution step, which gives u(i) + cst*u(i+1) = cst*f(i)
 
     double btemp = b;
-    u(0) = f(0)/b;
+    u(0) = tilde_b(0)/b; //f(0) not being 0 is a problem
+
+
+
+    cout<< u(0) << endl;
+
 
     for(i=1 ; i < N ; i++)
     {
         divisor_temp(i) = c/btemp;
         btemp = (b - (a*divisor_temp(i)));
-        u(i) = (f(i) - (a*u(i-1)))/btemp;
+        u(i) = (tilde_b(i) - (a*u(i-1)))/btemp;
     }
 
     // The backwards step;
@@ -52,6 +63,10 @@ vec Tridim_Solver(int N)
 
 int main()
 {
+
+
+
+
    int N;
 
    cout << "Number of steps:";
@@ -64,19 +79,19 @@ int main()
 
    vec Exact = 1 - (1-exp(-10))*x - exp(-10*x);
 
+//   cout << u << endl;
+//   cout << Exact << endl;
+
+   ofstream myfile;
+   myfile.open ("../Proj1_Task_1/Results.txt");
+       for(int i = 0; i<N ; i++)
+       {
+            myfile <<x(i) << "," << u(i) << "," <<x(i) << "," << Exact(i) << endl ;
+       }
+   myfile.close();
 
 
 
-
-
-
-//   cout << "Vectoren er " << endl << a  << endl << "Lengden er " << b << endl;
-
-//   return 0;
-
-
-
-
+  
     return 0;
 }
-

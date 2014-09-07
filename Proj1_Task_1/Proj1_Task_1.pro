@@ -5,3 +5,4 @@ CONFIG -= qt
 
 SOURCES += main.cpp
 
+INCLUDEPATH += "/home/gullik/Test/gnuplot-cpp"
