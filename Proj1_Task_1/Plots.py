@@ -1,22 +1,36 @@
 from numpy import genfromtxt
 from pylab import *
 
-my_data = genfromtxt('Results.txt', delimiter=',')
 
-plot(my_data[:,0], my_data[:,1], label = 'Calculated solution')
-plot(my_data[:,2], my_data[:,3], label = 'Exact solution')
+# Plotting of the solutions to the first 
+Solutions = genfromtxt('Results.csv', delimiter=',')
+FigSolution = figure()
+plot(Solutions[:,0], Solutions[:,1], label = 'Calculated solution')
+plot(Solutions[:,2], Solutions[:,3], label = 'Exact solution')
 
 legend(loc='upper right')
 
-print my_data
+N = len(Solutions)
 
-
-xlabel('Steps')
-ylabel('Magnitude')
+legend(loc='upper right')
+xlabel('x')
+ylabel('y')
 #ylim(0, 1)
-title('Plot')
+title('Plot with ' + str(N) + ' steps')
 grid(True)
-savefig("test.png")
+savefig("Plot_N_" + str(N) + ".png")
 show()
+
+# Plotting the relative error
+ErrorTable = genfromtxt('ErrorTable.csv', delimiter=',')
+
+FigRelErr = figure()
+plot(log10(1/(ErrorTable[:,0]+1)), ErrorTable[:,1], label = 'Calculated solution')
+
+
+show()
+
+
+
 
 

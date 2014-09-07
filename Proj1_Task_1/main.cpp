@@ -1,7 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include "armadillo"
-//#include "gnuplot_i.hpp"
+#include <math.h>
+#include <time.h>
+
+
 
 
 
@@ -21,8 +24,8 @@ vec Tridim_Solver(int N)
     vec u(N);
     int i;
 
-    //Creating some points of the source term f(x) = 100e^{-10x}
-    vec tilde_b = (1/(N+1))*exp(-10 * linspace(0,1, N));
+    //Creating some points of the source term f(x) = 100e^{-10x}*h²
+    vec tilde_b = 100*exp(-10 * linspace(0,1, N))/pow((1+N), 2);
 
 
 
@@ -34,8 +37,6 @@ vec Tridim_Solver(int N)
     u(0) = tilde_b(0)/b; //f(0) not being 0 is a problem
 
 
-
-    cout<< u(0) << endl;
 
 
     for(i=1 ; i < N ; i++)
@@ -52,7 +53,7 @@ vec Tridim_Solver(int N)
     }
 
 
-
+// Checking that the values that get out makes any sense
 //    for(int i=0 ; i<N ; i++)
 //    {
 //        cout << "u(" << i << ") = " << u(i)   <<endl;
@@ -61,10 +62,91 @@ vec Tridim_Solver(int N)
     return u;
 }
 
-int main()
+mat RelError(int N)
 {
 
+    //The matrix should only use int for the first row and double for the second row, to be fixed later
+    mat ErrorTable = zeros(N/10,2);
 
+    for(int i = 10; i <= N; i+=10)
+    {
+        vec x = linspace(0,1,i);
+
+        vec u = Tridim_Solver(i);
+
+        vec Exact = 1 - (1-exp(-10))*x - exp(-10*x);
+
+        // The first value and last value of the error is cut out since it results in an infinity because the exact solution
+        // is 0 at u(0) and u(N)
+
+       vec epsilon = log10(abs((u-Exact)/Exact));
+       double MaxRelError = max(epsilon.subvec(1, epsilon.n_elem -2));
+
+        ErrorTable(i/10 - 1, 1) = MaxRelError;
+        ErrorTable(i/10 - 1, 0) = i;
+
+
+    }
+
+    return ErrorTable;
+}
+
+int Time_Comp(int N)
+{
+    //Since the specialised tridimensional solver doesn't need the matrix to be
+    // created the matrix creation is included for the general armadillo solver.
+
+clock_t Start, Finish;
+
+Start = clock();
+
+cout << "Starttiden er " <<Start << endl;
+
+    //Creating the A matrix,
+    mat A = zeros<mat>(N,N);
+
+    for(int i = 0 ; i<N ; i++)
+    {
+        for(int j = 0 ; j < N ; j++)
+        {
+            if(j==i)
+                A(i,j) = 2;
+            if(j==i+1)
+                A(i,j) = -1;
+            if(j==i-1)
+                A(i,j)= -1;
+        }
+    }
+
+
+    //Creating source term
+    vec tilde_b = 100*exp(-10 * linspace(0,1, N))/pow((1+N), 2);
+
+    vec u_solver = zeros<vec>(N);
+
+    u_solver = solve(A, tilde_b);
+
+Finish = clock();
+
+cout << "Slutttid " << Finish << endl;
+
+double GenSolv = (Finish - Start)/CLOCKS_PER_SEC;
+
+
+Start = clock();
+    vec u_mysolver = Tridim_Solver(N);
+Finish = clock();
+
+double MySolv = (Finish - Start)/CLOCKS_PER_SEC;
+
+cout << GenSolv << " vs  " << MySolv << endl;
+
+
+    return 0;
+}
+
+int main()
+{
 
 
    int N;
@@ -83,13 +165,34 @@ int main()
 //   cout << Exact << endl;
 
    ofstream myfile;
-   myfile.open ("../Proj1_Task_1/Results.txt");
+   myfile.open ("../Proj1_Task_1/Results.csv");
        for(int i = 0; i<N ; i++)
        {
             myfile <<x(i) << "," << u(i) << "," <<x(i) << "," << Exact(i) << endl ;
        }
    myfile.close();
 
+// Error calculation
+cout << "Want to do relative error?" << endl;
+
+    int Ans;
+    cin >> Ans;
+    if (Ans == 1)
+     {   mat ErrorTable = RelError(N);
+
+
+
+//   ofstream myfile;
+   myfile.open ("../Proj1_Task_1/ErrorTable.csv");
+       for(uint i = 0; i< ErrorTable.n_rows ; i++)
+       {
+            myfile <<ErrorTable(i,0) << "," << ErrorTable(i,1) << endl ;
+       }
+   myfile.close();
+    }
+//Done with error calculation part
+
+   Time_Comp(N);
 
 
   

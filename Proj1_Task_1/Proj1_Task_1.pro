@@ -5,4 +5,7 @@ CONFIG -= qt
 
 SOURCES += main.cpp
 
+LIBS += -llapack -lblas -larmadillo
+
 INCLUDEPATH += "/home/gullik/Test/gnuplot-cpp"
+INCLUDEPATH += "/home/gullik/Downloads/compphys/programs/cppLibrary"
