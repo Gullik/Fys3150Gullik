@@ -1,0 +1,147 @@
+
+\documentclass[11pt,a4wide]{article}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{a4wide}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[dvips]{epsfig}
+\usepackage[T1]{fontenc}
+\usepackage{cite} % [2,3,4] --> [2--4]
+\usepackage{shadow}
+\usepackage{hyperref}
+\usepackage{physics}
+
+\setcounter{tocdepth}{2}
+
+\lstset{language=c++}
+\lstset{alsolanguage=[90]Fortran}
+\lstset{basicstyle=\small}
+\lstset{backgroundcolor=\color{white}}
+\lstset{frame=single}
+\lstset{stringstyle=\ttfamily}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+\title{ Project 1 in FYS-3150 }
+\author{Gullik Vetvik Killie }
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{The Jacobi Method}
+	\subsection{Theory behind the Jacobi method}
+	The Jacobi method is an iterative method to make an approximated diagonal
+	matrix in an eigenvalue problem by multiplying it several times with
+	a rotational matrix, \(\mathbf{S}\), that is chosen so it sets some off diagonal 
+	elements to \(0\). When multiplying it with the rotational matrix some of the already
+	0 elements may get a nonzero value, so by always choosing the largest off-diagonal
+	element hopefully it will produce a near diagonal end matrix. By also doing the rotation transformation 
+	on the right and side the equation will be equal on both sides throughout and we can extract the eiganvalues
+	easily at the end.
+	
+	\begin{align}
+		\mathbf{A} \va{x} &= \lambda \va{x} 
+		\\
+		\intertext{Doing a transformation with the rotation matrix \(\mathbf{S} = 
+		\begin{pmatrix}
+		1 & &  &  \\
+		 &  \ddots & & & \mbox{\huge 0} &  \\ \\
+		 & & &\cos{\theta} & \cdots & -\sin{\theta} \\
+		 & \mbox{\huge 0} &	& \vdots 	& 1 & \vdots \\
+		 & &	& \sin{\theta} & \cdots & \cos{\theta}
+		\end{pmatrix}
+		\), in which we choose \(\theta\) so the wanted elements in \(\mathbf{A}\) becomes \(0\) }
+		\mathbf{SA } \va{x} & = \lambda \mathbf{S}\va{x} \\
+		\mathbf{SA(S^{-1}S)}\va{x} & = \lambda \mathbf{S} \va{x}
+		\intertext{Then we introduce a new vector \(\va{y} = \mathbf{S} \va{x}\) and a new matrix \(\mathbf{B}=\mathbf{SAS^{-1}}\),
+		 where  \(\mathbf{B}\) is more diagonal than \(\mathbf{A}\)}
+		 \mathbf{B}\va{y} = \lambda \va{y}
+	\end{align}
+	
+	\noindent We do this again untill desired level of diagonality of the matrix is achieved
+	
+	\subsection{The Jacobi method computationally}
+		Since the matrix inversion \url{<http://en.wikibooks.org/wiki/LaTeX/Hyperlinks#.5Chyperref>} and multiplication \(O(n^3)\) (\url{<http://www.ee.ucla.edu/ee236b/lectures/num-lin-alg.pdf>}) (Put in proper references later bibtex) used in the Jacobi method is unecessarily heavy for the sparse
+		rotational matrix \(\mathbf{S}\) we used a quicker method to do it.\\
+		
+		For a simplified \(3\cross3\) symmetric system the transformation \(\mathbf{B}=\mathbf{SAS^{-1}}\) becomes:
+		
+		\begin{align}
+		\mathbf{B} &=
+			\begin{pmatrix}
+			1 & 0 & 0\\
+			0 & c & -s\\
+			0 & s & c
+			\end{pmatrix}
+			\begin{pmatrix}
+			a_{11} & a_{12} & a_{13}\\
+			a_{12} & a_{22} & a_{23}\\
+			a_{13} & a_{23} & a_{33}
+			\end{pmatrix}
+			\begin{pmatrix}
+			1 & 0 & 0\\
+			0 & c & s\\
+			0 & -s & c
+			\end{pmatrix}
+		\intertext{where \(c = \cos{\theta}, s = \sin{\theta}\)}
+		\\
+		&= 
+			\begin{pmatrix}
+			a_{11} 	&  	a_{12} & a_{13}
+			\\
+			c a_{12} - s a_{13}	& c a_{22} - s a_{23} & c a_{23} - s a_{33}
+			\\
+			sa_{12} + c a_{13} & sa_{22} + c a_{23} & sa_{23} + c a_{33}
+			\end{pmatrix}
+			\begin{pmatrix}
+			1 & 0 & 0\\
+			0 & c & s\\
+			0 & -s & c
+			\end{pmatrix}
+		\\ &=
+			\begin{pmatrix}
+			a_{11} & c(a_{12}) - s(a_{13})	& s(a_{12}) + c(a_{13})
+			\\
+			c a_{12} - s a_{13}	& c(c a_{22} - s a_{23}) - s(c a_{23} - s a_{33})	& s(c a_{22} - s a_{23}) + c(c a_{23} - s a_{33})
+			\\
+			sa_{12} + c a_{13}	& c(sa_{22} + c a_{23}) - s(sa_{23} + c a_{33})	& s(sa_{22} + c a_{23}) + c(sa_{23} + c a_{33})
+			\end{pmatrix}
+		\\&=
+			\begin{pmatrix}
+			a_{11} & ca_{12} - sa_{13}	& sa_{12} + ca_{13}
+			\\
+			c a_{12} - s a_{13} 	& c^2a_{22} + s^2 a_33 -2sc a_{23}	& a_{23}(c^2 - s^2) + sc(a_{22}-a_{33})
+			\\
+			sa_{12} + c a_{13} 	& a_{23}(c^2 - s^2) + sc(a_{22} -a_{33})	& s^2a_{22} + c^2 a_{33} + 2 sca_{23}
+			\end{pmatrix}
+		\intertext{Then we choose \(\theta\) so that \(B_{23}=0\)}
+		\mathbf{B} &= \begin{pmatrix}
+			a_{11} & ca_{12} - sa_{13}	& sa_{12} + ca_{13}
+			\\
+			c a_{12} - s a_{13} 	& c^2a_{22} + s^2 a_33 -2sc a_{23}	& 0
+			\\
+			sa_{12} + c a_{13} 	& 0	& s^2a_{22} + c^2 a_{33} + 2 sca_{23}
+			\end{pmatrix}
+		\end{align}
+		\noindent All the components of \(\mathbf{B}\) is now known so they can be calculated straightforward for \(\theta\).
+		If we precalculate \(\cos{\theta}\) and \(\sin{\theta}\) the flops needed to calculate \(\mathbf{B}\) will be:
+		
+		\begin{itemize}
+		\item First row: 4 multiplications and 2 additions
+		\item Second row: 10 multiplications and 3 additions
+		\item Third row: 10 multiplications and 3 additions
+		\end{itemize}
+
+\end{document}

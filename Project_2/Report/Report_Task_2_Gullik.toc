@@ -1,0 +1,3 @@
+\contentsline {section}{\numberline {1}The Jacobi Method}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Theory behind the Jacobi method}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}The Jacobi method computationally}{2}{subsection.1.2}
