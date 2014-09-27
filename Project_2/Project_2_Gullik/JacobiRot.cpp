@@ -56,32 +56,32 @@ int Rotation(mat * A, mat * eigenvector, uvec Location)      // Do this by hand 
     c = 1.0/sqrt(1+pow(t,2));
     s = t*c;
 
-    cout << "tau er: " << tau << ", t er: " << t << ", c er: " << c << ", og s er: " << s << endl;
+//    cout << "tau er: " << tau << ", t er: " << t << ", c er: " << c << ", og s er: " << s << endl;
 
-//Making the rotation matrix S, a matrix that should rotate the elements xx,xy,yx, and yy by tau
-//Just for testing purposes to see that the quicker algorithm is correct, since this is quite slow
-//It also produced some numerical small errors, probably because of approximations in the inversion
+////Making the rotation matrix S, a matrix that should rotate the elements xx,xy,yx, and yy by tau
+////Just for testing purposes to see that the quicker algorithm is correct, since this is quite slow
+////It also produced some numerical small errors, probably because of approximations in the inversion
 
-    mat Rotation = eye(B.n_rows, B.n_rows);
+//    mat Rotation = eye(B.n_rows, B.n_rows);
 
-    Rotation(x,x) = c;
-    Rotation(x,y) = -s;
-    Rotation(y,x) = s;
-    Rotation(y,y) = c;
+//    Rotation(x,x) = c;
+//    Rotation(x,y) = -s;
+//    Rotation(y,x) = s;
+//    Rotation(y,y) = c;
 
-//    cout << "S is:" << endl << Rotation << endl;
+////    cout << "S is:" << endl << Rotation << endl;
 
-    mat Test = Rotation*B*inv(Rotation);
+//    mat Test = Rotation*B*inv(Rotation);
 
-    if(trace(inv(Rotation) ) > trace(Rotation.t()) + 0.01  ||       // Checks to se if the angles are correct
-            trace(inv(Rotation) ) < trace(Rotation.t()) - 0.01)     // by checking that the transposed and inverse have the same trace
-    {
-        cout << "Error: the similarity matrix is not a similarity matrix" << endl;
-        exit(0);
-        return 0;
-    }
+//    if(trace(inv(Rotation) ) > trace(Rotation.t()) + 0.01  ||       // Checks to se if the angles are correct
+//            trace(inv(Rotation) ) < trace(Rotation.t()) - 0.01)     // by checking that the transposed and inverse have the same trace
+//    {
+//        cout << "Error: the similarity matrix is not a similarity matrix" << endl;
+//        exit(0);
+//        return 0;
+//    }
 
-    cout << "A is : " << endl << *A << endl << "After Rotation:"  <<  endl <<Test << endl;
+////    cout << "A is : " << endl << *A << endl << "After Rotation:"  <<  endl <<Test << endl;
 
 // //////////////////////////// Testing done
 
@@ -89,10 +89,14 @@ int Rotation(mat * A, mat * eigenvector, uvec Location)      // Do this by hand 
     double byy = B(y,y);
     double bxy = B(x,y);
 
-    B(x,x) = byy*pow(c,2) + bxx*pow(s,2) - 2.0*bxy*c*s;    // Assuming that it is a symmetric matrix so A(x,y)=A(y,x)
+    B(x,x) = bxx*pow(c,2) + byy*pow(s,2) - 2.0*bxy*c*s;    // Assuming that it is a symmetric matrix so A(x,y)=A(y,x)
     B(y,y) = byy*pow(c,2) + bxx*pow(s,2) + 2.0*bxy*c*s;    // x is the row position and y is the column position,
-    B(x,y) = (bxx-byy)*s*c + bxy*(pow(c,2)-pow(s,2));      // These can be
-    B(y,x) = (bxx- byy)*s*c + bxy*(pow(c,2)-pow(s,2));     // set to 0
+    B(x,y) = 0;
+    B(y,x) = 0;
+
+
+//    B(x,y) = (bxx-byy)*s*c + bxy*(pow(c,2)-pow(s,2));      // These can be
+//    B(y,x) = (bxx- byy)*s*c + bxy*(pow(c,2)-pow(s,2));     // set to 0
 
     // Changing the remaining elements by first calculating the uppr triangular part
     // then since we started with a symmetric A, and the similarity transformation keeps
@@ -114,9 +118,20 @@ int Rotation(mat * A, mat * eigenvector, uvec Location)      // Do this by hand 
         }
     }
 
-    cout << B << endl;
+//    cout << "The test calculated matrix" << endl << Test << endl <<"My calculated matrix " << endl <<B << endl;
 
 // Time to calculate the new eigenvector that has been operated on by S^(-1)
+
+    double rix,riy;
+    for(int i = 0; i < R.n_rows; i++)
+    {
+        rix = R(i,x);
+        riy = R(i,y);
+        R(i,x) = c*rix - s*riy;
+        R(i,y) = c*riy + s*rix;
+    }
+
+//    cout << "Testeigenvector er:" <<endl << TestEigen << endl << "Den utreknede er:" << endl << R << endl;
 
     return 0;
 }
@@ -133,11 +148,11 @@ int JacobiRot(mat * A, mat * eigenvector, int Iterations, double epsilon)
 
     for(int i = 0; i < Iterations; i++)
     {
-        cout << "Doing Jacobi rotation number " << i << endl;
+//        cout << "Doing Jacobi rotation number " << i + 1 << endl;
 
         MaxLoc = MaxOffDiag (A);
 
-        cout << "Biggest matrix element is at position: " << MaxLoc[0] << "," << MaxLoc[1] << " and has the value " << A[0,0](MaxLoc(0),MaxLoc(1)) <<endl;
+//        cout << "Biggest matrix element is at position: " << MaxLoc[0] << "," << MaxLoc[1] << " and has the value " << A[0,0](MaxLoc(0),MaxLoc(1)) <<endl;
 
         if(fabs(A[0,0](MaxLoc(0),MaxLoc(1))) < epsilon)         //The A[0,0](i,j) gets goes to the matrix stored in the pointer and gets element ij
         {
@@ -145,6 +160,8 @@ int JacobiRot(mat * A, mat * eigenvector, int Iterations, double epsilon)
             return 0;
         }
         Rotation(A, eigenvector, MaxLoc);
+
+//        cout << "Rotation #" << i + 1 << endl;
     }
 
 
