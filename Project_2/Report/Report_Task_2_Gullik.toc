@@ -1,3 +1,5 @@
-\contentsline {section}{\numberline {1}The Jacobi Method}{2}{section.1}
+\contentsline {section}{\numberline {1}Task a: Implement the Jacobi method to solve eigenvalue problems}{2}{section.1}
 \contentsline {subsection}{\numberline {1.1}Theory behind the Jacobi method}{2}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}The Jacobi method computationally}{2}{subsection.1.2}
+\contentsline {section}{\numberline {2}Task b: Playing with the Jacobi algorithm on the Harmonic oscillator}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Steps vs choice of \relax $rho_{max}\relax \GenericError { }{LaTeX Error: Bad math environment delimiter}{See the LaTeX manual or LaTeX Companion for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}}{3}{subsection.2.1}

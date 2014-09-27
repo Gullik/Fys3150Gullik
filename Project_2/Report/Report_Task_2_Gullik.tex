@@ -36,11 +36,11 @@
 
 \maketitle
 
-\tableofcontents
+%\tableofcontents
 
 \newpage
 
-\section{The Jacobi Method}
+\section{Task a: Implement the Jacobi method to solve eigenvalue problems}
 	\subsection{Theory behind the Jacobi method}
 	The Jacobi method is an iterative method to make an approximated diagonal
 	matrix in an eigenvalue problem by multiplying it several times with
@@ -143,5 +143,56 @@
 		\item Second row: 10 multiplications and 3 additions
 		\item Third row: 10 multiplications and 3 additions
 		\end{itemize}
+		
+		My implementation of the Jacobi method is in the github folder git@github.com:Gullik/Fys3150Gullik.git and is 
+		contained in the file JacobiRot.cpp. It works by calling the JacobiRot() function and it then subsequently finds the 
+		largest offdiagonal element by the function MaxOffDiag(), and then does the rotation by the Rotation function.
+
+\section{Task b: Playing with the Jacobi algorithm on the Harmonic oscillator}
+	\subsection{Steps vs well edge; \(N \text{ vs }\rho_{max}\)} 
+	The number of steps, \(N\), decides the and how finegrained our approximation of the 3D potential well is.
+	 \(\rho_{max} \)is also important for how good the approximation becomes, since the wave function is supposed to approach
+	 0 at infinity distance away and at \(0\), and \(\rho_{max}\) is where we define that infinity to be. Since the potential is decreasing by \(r^2\)(?)
+	 it is decreasing quite fast and \(\rho_{max} \) does not need to be very large for it to cover most of the wavefunction.
+	 Unfortunately as we increase the area we cover by letting \(\rho_{max} \) grow, we need more steps, \(N\) to be able to cover
+	 the area inbetween to good enough detail and a large N slows down the Jacobi algorithm to a great extent. 
+	 In table \ref{table:Steps} (Reference numbering wrong) the needed number of steps needed to achieve 4 signaficant figures correct
+	  on the first three eigenvalues of a three dimensional harmonic oscillator, \(\lambda_n = 3, 7 , 11 , ...\).
+	
+	\begin{table}
+		\begin{tabular}{|r|l|l|l|l|l|}
+		\hline 
+		\(\mathbf{\rho_{max}}\) 	& 1 	& 2.5	& 5	  &		10	&	2
+		\\
+		\hline
+		\textbf{N} 					& - 	& 	-	& 175 &		- 	&	2	
+		\\ \hline
+		\end{tabular}
+	\label{table:Steps}
+	\caption{The steps needed to get 4 signficant figures on the first three eignvalues for different values of \(\rho_{max}\)}
+	\end{table}
+	
+	\subsection{Comparing it with the solver from the armadillo library}
+	\begin{table}
+		\begin{tabular}{|c|l|l|l|}
+		\hline
+		N			& 	10			&	50			&	100			&	
+		\\ \hline
+		eig\_sym	&	1.25e-4s	&	0.001431s	&	0.004766s	&
+		\\	\hline		
+		Jacobi\_Rot	&	4.3e-5s		&	0.019119s	&	0.349412s	&
+		\\ \hline
+		Rotations	& 13			&	856			& 	6483		&
+		\\ \hline
+		\end{tabular}
+	\caption{The time test where done with \(\rho_{max}= 20\) and a tolerance of \( \epsilon = 0.001\), value of \(\rho_{max}\) 
+			decides the sparseness of the matrix, while \(\epsilon\) decides the accuracy. With the chosen tolerance the eigenvalues 
+			agreed with the ones from the Armadillo solver for \(6\) significant figures for most configurations.
+			Rotations is the number of applications of the symmetric transform that was applied by the Jacobi\_Rot before the offdiagonal elements was below 
+			the tolerance \(\epsilon\)}
+	\end{table}
+		
+		
+
 
 \end{document}
