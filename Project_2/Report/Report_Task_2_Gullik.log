@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.1)  27 SEP 2014 19:15
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.1)  28 SEP 2014 23:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1472,21 +1472,25 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 38.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+(./Report_Task_2_Gullik.toc)
+\tf@toc=\write4
+\openout4 = `Report_Task_2_Gullik.toc'.
+
+ [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 76.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 78.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-Overfull \hbox (15.66277pt too wide) in paragraph at lines 76--78
+Overfull \hbox (15.66277pt too wide) in paragraph at lines 78--80
 \T1/cmr/m/n/10.95 Since the ma-trix in-ver-sion []$\T1/cmtt/m/n/10.95 <[]http :
  / / en . wikibooks . org / wiki / LaTeX / Hyperlinks # .5Chyperref>[]$[]
  []
 
 
-Overfull \hbox (4.22795pt too wide) in paragraph at lines 76--78
+Overfull \hbox (4.22795pt too wide) in paragraph at lines 78--80
 \T1/cmr/m/n/10.95 and mul-ti-pli-ca-tion $\OML/cmm/m/it/10.95 O\OT1/cmr/m/n/10.
 95 (\OML/cmm/m/it/10.95 n[]\OT1/cmr/m/n/10.95 )$ \T1/cmr/m/n/10.95 ([]$\T1/cmtt
 /m/n/10.95 <[]http : / / www . ee . ucla . edu / ee236b / lectures / num-[]lin-
@@ -1494,93 +1498,132 @@ Overfull \hbox (4.22795pt too wide) in paragraph at lines 76--78
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 76--78
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
 
  []
 
 [2]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 142.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 144.
 
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 142.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 144.
 
-Overfull \hbox (65.21466pt too wide) in paragraph at lines 147--150
-[]\T1/cmr/m/n/10.95 My im-ple-men-ta-tion of the Ja-cobi method is in the githu
-b folder git@github.com:Gullik/Fys3150Gullik.git
+Underfull \hbox (badness 10000) in paragraph at lines 149--162
+
  []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 152.
+Overfull \hbox (48.21466pt too wide) in paragraph at lines 149--162
+\T1/cmr/m/n/10.95 My im-ple-men-ta-tion of the Ja-cobi method is in the github 
+folder git@github.com:Gullik/Fys3150Gullik.git
+ []
+
+[3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 257--263
+
+ []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\rho' on input line 152.
+LaTeX Warning: File `/home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_G
+ullik/Plot of the groundstate with200.png' not found on input line 265.
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 152.
+</home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/Plot of the gr
+oundstate with200.png, id=113, 578.16pt x 433.62pt>
+File: /home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/Plot of t
+he groundstate with200.png Graphic file (type png)
 
+<use /home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/Plot of th
+e groundstate with200.png>
+Package pdftex.def Info: /home/gullik/Documents/Fys3150Gullik/Project_2/Project
+_2_Gullik/Plot of the groundstate with200.png used on input line 265.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-LaTeX Warning: Reference `table:Steps' on page 3 undefined on input line 159.
+Underfull \hbox (badness 10000) in paragraph at lines 265--269
+[][]
+ []
 
-[3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 198.
- [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 198.
+[5]
+</home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr05.pn
+g, id=124, 578.16pt x 433.62pt>
+File: /home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr
+05.png Graphic file (type png)
+
+<use /home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr0
+5.png>
+Package pdftex.def Info: /home/gullik/Documents/Fys3150Gullik/Project_2/Project
+_2_Gullik/3stateswr05.png used on input line 273.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+</home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr1.png
+, id=125, 578.16pt x 433.62pt>
+File: /home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr
+1.png Graphic file (type png)
+
+<use /home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr1
+.png>
+Package pdftex.def Info: /home/gullik/Documents/Fys3150Gullik/Project_2/Project
+_2_Gullik/3stateswr1.png used on input line 280.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+</home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr5.png
+, id=126, 578.16pt x 433.62pt>
+File: /home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr
+5.png Graphic file (type png)
+
+<use /home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr5
+.png>
+Package pdftex.def Info: /home/gullik/Documents/Fys3150Gullik/Project_2/Project
+_2_Gullik/3stateswr5.png used on input line 287.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 295.
+ [6 </home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/Plot of th
+e groundstate with200.png>] [7 </home/gullik/Documents/Fys3150Gullik/Project_2/
+Project_2_Gullik/3stateswr05.png> </home/gullik/Documents/Fys3150Gullik/Project
+_2/Project_2_Gullik/3stateswr1.png>] [8 </home/gullik/Documents/Fys3150Gullik/P
+roject_2/Project_2_Gullik/3stateswr5.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 295.
  (./Report_Task_2_Gullik.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 198.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 198.
-
-
-Package rerunfilecheck Warning: File `Report_Task_2_Gullik.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Report_Task_2_Gullik.out':
-(rerunfilecheck)             Before: 6FB28912AAD26F0AD5F4A4D9AD963464;261
-(rerunfilecheck)             After:  CFBA452FF89A04A4662ACB6678BBF556;549.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 198.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 295.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 295.
+Package rerunfilecheck Info: File `Report_Task_2_Gullik.out' has not changed.
+(rerunfilecheck)             Checksum: E96AFF75B0150772898A47BFA58BBB76;821.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 295.
  ) 
 Here is how much of TeX's memory you used:
- 13450 strings out of 495028
- 227724 string characters out of 6181498
+ 13504 strings out of 495028
+ 229624 string characters out of 6181498
  330670 words of memory out of 5000000
- 16427 multiletter control sequences out of 15000+600000
- 20956 words of font info for 59 fonts, out of 8000000 for 9000
+ 16455 multiletter control sequences out of 15000+600000
+ 20622 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 45i,14n,58p,10421b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/gullik/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/
-gullik/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/gullik/.te
-xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm2074.600pk> </home/gullik/.texmf-var/fo
-nts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/gullik/.texmf-var/fonts/pk/ljf
-our/jknappen/ec/ecbx1440.600pk> </home/gullik/.texmf-var/fonts/pk/ljfour/jknapp
-en/ec/ecrm1095.600pk> </home/gullik/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
+ 45i,14n,58p,10421b,355s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/gullik/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/
+gullik/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm2074.600pk> </home/gullik/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/gullik/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/gullik/.texmf-var/fonts/pk/ljf
+our/jknappen/ec/ecbx1095.600pk> </home/gullik/.texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecbx1440.600pk> </home/gullik/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
 1200.600pk> </home/gullik/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy8.pfb>
-Output written on Report_Task_2_Gullik.pdf (4 pages, 161569 bytes).
+t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm1
+0.pfb>
+Output written on Report_Task_2_Gullik.pdf (8 pages, 462826 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 117 compressed objects within 2 object streams
- 23 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 464 PDF objects out of 1000 (max. 8388607)
+ 191 compressed objects within 2 object streams
+ 41 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 

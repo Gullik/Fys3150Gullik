@@ -36,9 +36,11 @@
 
 \maketitle
 
-%\tableofcontents
+\tableofcontents
 
 \newpage
+
+All the programs are in the gihub folder git@github.com:Gullik/Fys3150Gullik.git.
 
 \section{Task a: Implement the Jacobi method to solve eigenvalue problems}
 	\subsection{Theory behind the Jacobi method}
@@ -144,12 +146,22 @@
 		\item Third row: 10 multiplications and 3 additions
 		\end{itemize}
 		
+		For a larger matrix we can ignore the all of the order \(O(N)\) operations since the higher order operations will overshadow them.
+		The Jacobi rotation first finds the largest offdiagonal element, a \(\frac{N^2}{2} - N\) set of operations since it only need to 
+		search through the upper half of the matrix since it is symmetric and it can ignore the diagonal. Doing the symmetry transformation
+		it requires first \(O(N)\) order of operations to find the angle. To do the requires changes in the matrix it needs to go through 
+		all the rows in the matrix and do four floating points operations and relocation. \(\sum_i^N(B_{ij})\) where four of the elements
+		are changed for each row. The first change \(B_{ik} = cos(\theta)A_{ik} - \sin{\theta}A_{il}\) requires 2 multiplications and a subtraction,
+		and the same for \(B_{il} = cos(\theta)A_{il} - \sin{\theta}A_{ik}\). It is symmetrical so we can use those changes again so we need
+		\(6N\) floating points operations for each row, totaling up to \(6N^2\) FLOPS for the symmetry transformation. The whole Jacobi method 
+		transformation with the finding of the largest off diagonal element totals appriximately \((6+\frac{1}{2})N^2\) FLOPS.
+		\\ \\
 		My implementation of the Jacobi method is in the github folder git@github.com:Gullik/Fys3150Gullik.git and is 
 		contained in the file JacobiRot.cpp. It works by calling the JacobiRot() function and it then subsequently finds the 
 		largest offdiagonal element by the function MaxOffDiag(), and then does the rotation by the Rotation function.
 
 \section{Task b: Playing with the Jacobi algorithm on the Harmonic oscillator}
-	\subsection{Steps vs well edge; \(N \text{ vs }\rho_{max}\)} 
+	\subsection{Steps vs well edge} 
 	The number of steps, \(N\), decides the and how finegrained our approximation of the 3D potential well is.
 	 \(\rho_{max} \)is also important for how good the approximation becomes, since the wave function is supposed to approach
 	 0 at infinity distance away and at \(0\), and \(\rho_{max}\) is where we define that infinity to be. Since the potential is decreasing by \(r^2\)(?)
@@ -174,15 +186,15 @@
 	
 	\subsection{Comparing it with the solver from the armadillo library}
 	\begin{table}
-		\begin{tabular}{|c|l|l|l|}
+		\begin{tabular}{|c|l|l|l|l|l|}
 		\hline
-		N			& 	10			&	50			&	100			&	
+		N			& 	10			&	50			&	100			&	500			&	1000
 		\\ \hline
-		eig\_sym	&	1.25e-4s	&	0.001431s	&	0.004766s	&
+		eig\_sym	&	1.25e-4s	&	0.001431s	&	0.004766s	&	0.17468s	&	1.07868s
 		\\	\hline		
-		Jacobi\_Rot	&	4.3e-5s		&	0.019119s	&	0.349412s	&
+		Jacobi\_Rot	&	4.3e-5s		&	0.019119s	&	0.349412s	&	352.13s		&	8702.44s
 		\\ \hline
-		Rotations	& 13			&	856			& 	6483		&
+		Rotations	& 13			&	856			& 	6483		& 	265300		&	1123182
 		\\ \hline
 		\end{tabular}
 	\caption{The time test where done with \(\rho_{max}= 20\) and a tolerance of \( \epsilon = 0.001\), value of \(\rho_{max}\) 
@@ -191,8 +203,93 @@
 			Rotations is the number of applications of the symmetric transform that was applied by the Jacobi\_Rot before the offdiagonal elements was below 
 			the tolerance \(\epsilon\)}
 	\end{table}
+	
+	The function when tested got the wanted results of the first three eigenvalues \(\lambda_i = 3, 7, 11\).
+	
+\section{Task c: The groundstate of two electrons in a harmonic potetial well}
+	\subsection{Theory}
+		Let us first start with a standard equation for two noninteracting particles in a potential well
 		
+		\begin{align}
+		\left(  -\frac{\hbar^2}{2 m} \frac{d^2}{dr_1^2} -\frac{\hbar^2}{2 m} \frac{d^2}{dr_2^2}+ 
+		\frac{1}{2}k r_1^2+ \frac{1}{2}k r_2^2\right)u(r_1,r_2)  &= E^{(2)} u(r_1,r_2)
+		\intertext{We introduce a a new coordinate between the particles, \(\vec{r} = \vec{r_1} -\vec{r_2}\) 
+		and a center of mass coordinate coordinate \(\vec{R} = \frac{\vec{r_1} +\vec{r_2}}{2}\)}
+		\left(  -\frac{\hbar^2}{m} \frac{d^2}{dr^2} -\frac{\hbar^2}{4 m} \frac{d^2}{dR^2}+ \frac{1}{4} k r^2+  kR^2\right)u(r,R)
+		  &= E^{(2)} u(r,R)
+		\intertext{The energy can be seperated into a center of mass and a relative energy, we will only focus on the relative energy. 
+		Adding the repulsion between them the radial equation becomes:}
+		\left(  -\frac{\hbar^2}{m} \frac{d^2}{dr^2}+ \frac{1}{4}k r^2+\frac{\beta e^2}{r}\right)\psi(r)  &= E_r \psi(r) 
+		\\
+		\intertext{Introducing a dimensionless variabe \(\rho = \frac{r}{\alpha}\) and choosing \(\alpha = \frac{\hbar^2}{m\beta e^2}\) the radial equation becomes} 
+		-\frac{d^2}{d\rho^2} \psi(\rho) + \omega_r^2\rho^2\psi(\rho) +\frac{1}{\rho}\psi(\rho) &= \lambda \psi(\rho)
+		\end{align}
+	\noindent This will be discretized in the same way as in task b, except that the diagonal becomes 
+	\(d_i = -\frac{1}{h^2} + \omega_r^2(\rho_{min} + ih)^2\), where \(h\) is the stepsize.
+	
+	\subsection{Analysis}
+		The computation is carried out with main.cpp in the github folder, by choosing task = 2. 
 		
+		We were not able to find any stable eigenvalues that did not depend upon the choice of \(\rho_{max}\) and \(N\). 
+		We could also not get it to produce the wanted values found in (M.Taut, Physical Review A, 1993) which should give eigenvalues
+		of \(0.625\) for \(\omega_r = 1/4\). The eigenvalues where stable for \(\omega_r = 0.5, 1 \text{ and } 5 \) and are given in 
+		table \ref{table:Oscillator_pot}. The eigenvalues grew stronger as the oscillator potential grew stronger, which indicates that the 
+		electrons where forced closer together.
+		
+		\begin{table}
+			\begin{tabular}{c || l | l | l}
+			\hline
+			\(\omega_r\) &	\(\lambda_1\) & \(\lambda_2\) & \(\lambda_3\)
+			\\ \hline
+			0.5			&	2.2		&		4.1			&	6.0
+			\\ \hline
+			1.0			&	4.1		&		7.9			&	11
+			\\ \hline	
+			5.0 		&	17		&		37		&	56
+			\end{tabular}
+			\caption{Table over eigenvalues for different oscillator potentials. The eigenvalues, which are proportional to the 
+			relative energy between them gets stronger as the oscillator potential grows stronger.}
+			\label{table:Oscillator_pot}
+		\end{table}
+
+	\section{Task d: Plotting the eigenfunctions}
+	
+	The main.cpp function stores the eigenvectors as a csv file which is then plotted by a small python script, called Plots.py in the same github folder.
+	\\ \\
+	The results for the groundstates are plotted in figure \ref{fig:wavefunctions}, and shows how the electron clouds far apart the electron clouds tend to be.
+	The results for the lowest oscilatore potential of \(\omega = 0.5\) is plotted in figure \ref{fig:0_5} and shows that the wavefunctions is not
+	contained by the potential well for the exited states. In figures \ref{fig:1} and \ref{fig:5} the wavefunctions are shown for oscillator 
+	potentials of \(1\) and \( 5\) and the two electrons are kept quite close by the well.  All of the wavefunctions are yet to be normalised.
+	
+	\begin{figure}
+		\includegraphics[scale = 0.5]{/home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/Plot of the groundstate with200.png}
+		\label{fig:wavefunctions}
+		\caption{A plot of the different functions for the relative distance between two electrons in a three dimensional harmonic potential well.
+		Both the electrons are in their ground state. When the oscillator potential is strong the electrons, stay relatively close as the oscillator
+		potential forces them together}
+	\end{figure}
+	
+	\begin{figure}
+		\includegraphics[scale = 0.5]{/home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr05.png}
+		\caption{The first three states of the relative distance between the two electrons with an oscillator potential of 0.5. 
+		Both the exited states have enough energy to not be contained by the potential well}
+		\label{fig:0_5}
+	\end{figure}
+	
+	\begin{figure}
+		\includegraphics[scale = 0.5]{/home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr1.png}
+		\caption{The first three states of the relative distance between the two electrons with an oscillator potential of 1. 
+		The electrons are bound for all the states}
+		\label{fig:1}
+	\end{figure}
+	
+	\begin{figure}
+		\includegraphics[scale = 0.5]{/home/gullik/Documents/Fys3150Gullik/Project_2/Project_2_Gullik/3stateswr5.png}
+		\caption{The first three states of the relative distance between the two electrons with an oscillator potential of 1. 
+		The electrons are bound for all the states}
+		\label{fig:5}
+	\end{figure}
+
 
 
 \end{document}

@@ -58,9 +58,12 @@ int Rotation(mat * A, mat * eigenvector, uvec Location)      // Do this by hand 
 
 //    cout << "tau er: " << tau << ", t er: " << t << ", c er: " << c << ", og s er: " << s << endl;
 
-////Making the rotation matrix S, a matrix that should rotate the elements xx,xy,yx, and yy by tau
-////Just for testing purposes to see that the quicker algorithm is correct, since this is quite slow
-////It also produced some numerical small errors, probably because of approximations in the inversion
+// ///////////////// Running a test
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// //Making the rotation matrix S, a matrix that should rotate the elements xx,xy,yx, and yy by tau
+// //Just for testing purposes to see that the quicker algorithm is correct, since this is quite slow
+// //It also produced some numerical small errors, probably because of approximations in the inversion
 
 //    mat Rotation = eye(B.n_rows, B.n_rows);
 
@@ -69,7 +72,7 @@ int Rotation(mat * A, mat * eigenvector, uvec Location)      // Do this by hand 
 //    Rotation(y,x) = s;
 //    Rotation(y,y) = c;
 
-////    cout << "S is:" << endl << Rotation << endl;
+// //    cout << "S is:" << endl << Rotation << endl;
 
 //    mat Test = Rotation*B*inv(Rotation);
 
@@ -81,7 +84,7 @@ int Rotation(mat * A, mat * eigenvector, uvec Location)      // Do this by hand 
 //        return 0;
 //    }
 
-////    cout << "A is : " << endl << *A << endl << "After Rotation:"  <<  endl <<Test << endl;
+// //    cout << "A is : " << endl << *A << endl << "After Rotation:"  <<  endl <<Test << endl;
 
 // //////////////////////////// Testing done
 
