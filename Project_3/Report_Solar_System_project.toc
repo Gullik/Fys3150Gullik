@@ -1,0 +1,3 @@
+\contentsline {section}{\numberline {1}Task a: Prepare the problem, implement Runge-Kutta 4}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Preparing simple ODE}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Runge-Kutta 4 method}{2}{subsection.1.2}
