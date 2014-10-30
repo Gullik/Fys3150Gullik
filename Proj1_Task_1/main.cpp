@@ -183,7 +183,7 @@ cout << "Want to do relative error? Yes = 1, No = 0" << endl;
      {   mat ErrorTable = RelError(N);
 
         //   ofstream myfile;
-           myfile.open ("../Proj1_Task_1/ErrorTable.csv");
+           myfile.open ("..Proj1_Task_1/ErrorTable.csv");
                for(uint i = 0; i< ErrorTable.n_rows ; i++)
                {
                     myfile <<ErrorTable(i,0) << "," << ErrorTable(i,1) << endl ;
